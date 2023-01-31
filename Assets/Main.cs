@@ -1,25 +1,17 @@
 using System.Collections.Generic;
 using System.Collections;
+using UnityEngine.UI;
 using UnityEngine;
 
 public class Main : MonoBehaviour
 {
-    public enum graphType
+    [SerializeField] private Transform graphTypeChoiceButton, graphPeriodChoiseButton;
+
+    private ButtonContainer graphTypeButton, graphPeriodButton;
+
+    private void Start()
     {
-        Income,
-        Profit,
-        Expenses
+        graphPeriodButton = new ButtonContainer(graphPeriodChoiseButton);
+        graphTypeButton = new ButtonContainer(graphTypeChoiceButton);
     }
-    public enum graphTime
-    {
-        Week,
-        Month,
-        Quarter,
-        Year
-    }
-
-    public static graphType GraphType;
-    public static graphTime GraphTime;
-
-
 }
