@@ -22,8 +22,7 @@ public class GraphTest : MonoBehaviour
         while (true)
         {
             yield return new WaitForSeconds(1);
-            print(tick);
-            tick = 0;
+            graphGenerator.ClearGraph();
         }
     }
 

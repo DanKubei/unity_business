@@ -19,7 +19,7 @@ public class GraphGenerator : MonoBehaviour
     [SerializeField]
     private Material lineRiseMaterial, lineStayMaterial, lineFallMaterial, groundRiseMaterial, groundStayMaterial, groundFallMaterial;
 
-    private Vector2 graphSize, graphPosition, graphWorldSize, graphWorldPosition;
+    private Vector2 graphSize, graphPosition;
     private GraphPoint[] points;
     private float maxValue, divisionPrice;
     private List<RectTransform> circles = new List<RectTransform>();
@@ -37,8 +37,6 @@ public class GraphGenerator : MonoBehaviour
         graphRect = graphTransform.GetComponent<RectTransform>();
         Vector3[] worldCorners = new Vector3[4];
         graphRect.GetWorldCorners(worldCorners);
-        graphWorldSize = new Vector2((worldCorners[2] - worldCorners[1]).x, (worldCorners[1] - worldCorners[0]).y);
-        graphWorldPosition = worldCorners[0];
         graphPosition = new Vector2(graphRect.rect.position.x, graphRect.rect.position.y);
         graphSize = new Vector2(graphRect.rect.size.x, graphRect.rect.size.y * graphMax);
         maxValue = minDivisionPrice * divisionCount * graphMax;
@@ -46,7 +44,7 @@ public class GraphGenerator : MonoBehaviour
         DrawNet();
     }
 
-    public void DrawNet()
+    private void DrawNet()
     {
         if (divisionTransforms.Count > 0)
         {
@@ -226,6 +224,32 @@ public class GraphGenerator : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void ClearGraph()
+    {
+        StopAllCoroutines();
+        foreach (RectTransform rectTransform in circles)
+        {
+            Destroy(rectTransform.gameObject);
+        }
+        circles.Clear();
+        foreach (MeshFilter meshFilter in groundMeshes)
+        {
+            Destroy(meshFilter.gameObject);
+        }
+        groundMeshes.Clear();
+        groundMeshesRender.Clear();
+        foreach (MeshFilter meshFilter in linesMeshes)
+        {
+            Destroy(meshFilter.gameObject);
+        }
+        linesMeshes.Clear();
+        linesMeshesRender.Clear();
+        divisionPrice = minDivisionPrice;
+        maxValue = minDivisionPrice * divisionCount * graphMax;
+        points = new GraphPoint[valueCount];
+        SetTextValues();
     }
 
     private IEnumerator ChangeLine(int index)

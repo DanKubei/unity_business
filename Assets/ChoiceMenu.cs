@@ -5,16 +5,19 @@ using UnityEngine;
 
 public class ChoiceMenu : MonoBehaviour
 {
-    public delegate void MenuHandler(int output);
-    public event MenuHandler OnMenuChoise;
+    public delegate void MenuHandler(int output, string self, string id);
+    public event MenuHandler OnMenuChoice;
 
     [SerializeField] private Transform buttonPrefab, menuTransform, contentTransform;
 
     private Image backgroundImage;
     private List<ButtonContainer> buttons = new List<ButtonContainer>();
+    private string[] data = new string[2];
 
-    public void InvokeMenu(string[] options)
+    public void InvokeMenu(string[] options, string self, string id)
     {
+        data[0] = self;
+        data[1] = id;
         if (backgroundImage == null)
         {
             backgroundImage = GetComponent<Image>();
@@ -39,7 +42,7 @@ public class ChoiceMenu : MonoBehaviour
             }
             if (difference < 0)
             {
-                DestroyButtons(difference);
+                DestroyButtons(-difference);
             }
         }
         for (int i = 0; i < buttons.Count; i++)
@@ -73,7 +76,7 @@ public class ChoiceMenu : MonoBehaviour
 
     private void OnButtonClick(int index)
     {
-        OnMenuChoise?.Invoke(index);
+        OnMenuChoice?.Invoke(index, data[0], data[1]);
         backgroundImage.enabled = false;
         menuTransform.gameObject.SetActive(false);
     }
