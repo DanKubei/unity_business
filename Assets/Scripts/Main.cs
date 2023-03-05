@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class Main : MonoBehaviour
 {
+
     [SerializeField] private Transform graphTypeChoiceButton, graphPeriodChoiceButton;
     [SerializeField] private ChoiceMenu choiceMenu;
     [SerializeField] private string[] graphTypes, graphPeriods;

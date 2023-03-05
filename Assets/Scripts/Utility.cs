@@ -4,7 +4,6 @@ using UnityEngine;
 
 public static class Utility
 {
-
     public static float eulerConvert = Mathf.PI / 180;
 
     public static float GetAngleFromVectors(Vector2 vector1, Vector2 vector2)
