@@ -100,4 +100,9 @@ public class Worker
         }
         this.experience += experience;
     }
+
+    public string GetSaveData()
+    {
+        return JsonUtility.ToJson(this);
+    }
 }

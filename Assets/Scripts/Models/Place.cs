@@ -59,4 +59,9 @@ public class Place
         }
         risky = newRisky;
     }
+
+    public string GetSaveData()
+    {
+        return JsonUtility.ToJson(this);
+    }
 }

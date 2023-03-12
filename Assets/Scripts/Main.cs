@@ -21,6 +21,43 @@ public class Main : MonoBehaviour
         graphTypeButton.Button.onClick.AddListener(delegate { InvokeChoiceMenu(graphTypes, graphPeriodButton.name); });
 
         choiceMenu.OnMenuChoice += OnMenuChoice;
+        Worker[] workers =
+            {
+            new Worker("David", 10, 0, 0.5f, 0.5f, 0.5f),
+            new Worker("Alice", 5, 10, 0.25f, 0.75f, 0.2f),
+            new Worker("George", 25, 100, 0.75f, 0.6f, 0.9f)
+        };
+        Shift[] shifts =
+            {
+            new Shift("", 7*60, 19*60),
+            new Shift("", 7*60, 19*60),
+            new Shift("", 7*60, 19*60),
+            new Shift("", 7*60, 19*60),
+            new Shift("", 7*60, 19*60),
+            new Shift("", 7*60, 17*60),
+            new Shift("", 7*60, 17*60)
+        };
+        foreach (Shift shift in shifts)
+        {
+            shift.AddWorker(workers[Random.Range(0, workers.Length - 1)]);
+        }
+        Place place = new Place("BottomClint", 100, 10, 0.75f);
+        Product[] inProducts =
+            {
+            new Product("Beef", 5),
+            new Product("Bread", 1)
+        };
+        Product[] outProducts = 
+            {
+            new Product("Basic Burger", 15)
+        };
+        Business business = new Business("Burger Cafe", place, inProducts, outProducts);
+        business.AddWorkers(workers);
+        for (int i = 0; i < shifts.Length; i++)
+        {
+            business.SetShift(i, shifts[i]);
+        }
+        print(business.GetSaveData());
     }
 
     private void OnMenuChoice(int choice, string self, string id)

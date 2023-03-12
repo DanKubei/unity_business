@@ -11,7 +11,7 @@ public class Shift
 
     private string name;
     private double start, end;
-    private List<Worker> workers;
+    private List<Worker> workers = new List<Worker>();
 
     private const int maxTime = 1440;
 
@@ -79,5 +79,10 @@ public class Shift
     public void RemoveAllWorkers()
     {
         workers.Clear();
+    }
+
+    public string GetSaveData()
+    {
+        return JsonUtility.ToJson(this);
     }
 }
